@@ -108,6 +108,7 @@ poor-charlies-almanack-skill/
 
 ## More Skills
 
+- [Buffett Letters Skill](https://github.com/kangarooking/buffett-letters-skill) — 巴菲特 60+ 年致股东信的 20 个投资判断 skill
 - [No Rules Rules Skill](https://github.com/kangarooking/no-rules-rules-skill) — 网飞自由与责任文化的 10 个组织设计 skill
 
 ## License

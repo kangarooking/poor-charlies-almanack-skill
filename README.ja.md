@@ -108,6 +108,7 @@ poor-charlies-almanack-skill/
 
 ## More Skills
 
+- [Buffett Letters Skill](https://github.com/kangarooking/buffett-letters-skill) — バフェットの60年以上の株主への手紙から抽出した20個の投資判断スキル
 - [No Rules Rules Skill](https://github.com/kangarooking/no-rules-rules-skill) — ネットフリックスの自由と責任の文化から抽出した10個の組織設計スキル
 
 ## License
