@@ -1,0 +1,73 @@
+{
+  "skill": "latticework-mental-models",
+  "version": "0.1.0",
+  "source_book": "《穷查理宝典》— 查理·芒格",
+  "darwin_compatible": true,
+  "test_cases": [
+    {
+      "id": "should-trigger-01",
+      "type": "should_trigger",
+      "prompt": "我在评估一个SaaS公司的投资价值，但主要是从财务指标来看的，感觉分析不够全面，但不知道还缺什么",
+      "expected_behavior": "应激活 latticework-mental-models，识别当前只有财务单维度分析，从心理学（用户粘性）、工程学（技术壁垒）、生物学（生态竞争）、经济学（规模效应）等维度扩展分析框架",
+      "notes": "正面场景：单维度分析（纯财务），语言信号匹配'感觉分析不够全面，但不知道还缺什么'"
+    },
+    {
+      "id": "should-trigger-02",
+      "type": "should_trigger",
+      "prompt": "我们公司用户增长突然停滞了，我觉得这应该就是市场饱和的问题，但想确认一下是不是还有别的原因",
+      "expected_behavior": "应激活 latticework-mental-models，识别用户只用了一个学科视角（市场/经济学），从心理学（用户疲劳）、工程学（产品体验退化）、生物学（竞争生态）等多维度分析增长停滞原因",
+      "notes": "正面场景：单一原因归因，语言信号匹配'这个问题应该就是XX方面的问题'"
+    },
+    {
+      "id": "should-trigger-03",
+      "type": "should_trigger",
+      "prompt": "我不太懂心理学和社会学，所以分析这个社区产品时只能从技术架构角度来评估，你能帮我补充其他维度吗",
+      "expected_behavior": "应激活 latticework-mental-models，明确用户当前只有技术单维度，引入心理学（社区互动动力学）、社会学（群体行为）、经济学（激励机制）等缺失维度",
+      "notes": "正面场景：明确表达缺失领域知识，语言信号匹配'我不太懂XX领域，所以没法判断'"
+    },
+    {
+      "id": "should-trigger-04",
+      "type": "should_trigger",
+      "prompt": "我想全面评估一下AI芯片行业的发展趋势，目前主要是从技术路线和竞争格局两个角度在看，你觉得还应该考虑什么",
+      "expected_behavior": "应激活 latticework-mental-models，扩展分析维度：加入地缘政治（供应链风险）、经济学（规模效应）、心理学（市场情绪与泡沫）、物理学（摩尔定律极限）等",
+      "notes": "正面场景：用户已有两个维度但主动寻求更全面的分析，匹配'需要评估一个决策的全面影响（一阶、二阶效应）'"
+    },
+    {
+      "id": "should-not-trigger-01",
+      "type": "should_not_trigger",
+      "prompt": "芒格说的'铁锤人倾向'是什么意思？能解释一下吗",
+      "expected_behavior": "不应激活本 skill，因为用户只是在询问概念定义，不需要实际应用多元思维模型来分析问题",
+      "notes": "诱饵：纯知识查询。虽然提到了核心概念'铁锤人倾向'，但本质是学习而非分析实践"
+    },
+    {
+      "id": "should-not-trigger-02",
+      "type": "should_not_trigger",
+      "prompt": "帮我查一下这个代码为什么会报错，我觉得应该是数据库连接的问题",
+      "expected_behavior": "不应激活本 skill，因为这是纯技术调试问题，需要的是代码层面的排查而非跨学科多维分析",
+      "notes": "诱饵：用户说了'我觉得应该是XX问题'看似单维度归因，但这是技术调试不是战略分析，B 段明确说'简单问题单维分析已足够'时不适用"
+    },
+    {
+      "id": "should-not-trigger-03",
+      "type": "should_not_trigger",
+      "prompt": "我想了解一下多元思维模型这个概念的背景和芒格是怎么提出的",
+      "expected_behavior": "不应激活本 skill，因为用户是在做历史/理论学习，不需要实际的多维度分析",
+      "notes": "诱饵：知识探索伪装成分析需求。关键词匹配但意图是了解概念而非应用方法论"
+    },
+    {
+      "id": "edge-01",
+      "type": "edge_case",
+      "prompt": "我们团队在讨论要不要转型做AI产品，我是从市场需求角度分析的，同事从技术可行性角度分析，你们觉得谁说得对",
+      "expected_behavior": "可以激活。用户已经有两个维度但问的是'谁对'而不是'还缺什么'。如果能引导到'两个维度都不够，需要更多视角'则更适合本 skill；如果只是仲裁两个已有观点，则是一般决策辅助",
+      "notes": "边界：用户已有两个维度（市场+技术），但思维框架仍是二选一而非多维整合。是否激活取决于能否引导用户从'谁对'转向'还有什么维度被忽略了'"
+    },
+    {
+      "id": "edge-02",
+      "type": "edge_case",
+      "prompt": "我想给团队做一次跨学科思维方法的培训，你能帮我准备材料吗",
+      "expected_behavior": "不应激活本 skill。用户要的是培训材料准备（内容创作），不是在分析具体问题时需要多维度框架。虽然主题相关，但场景是教学而非实践分析",
+      "notes": "边界：主题高度相关（跨学科思维），但场景是准备教学内容而非面对实际问题需要多维分析。B 段说'用户明确只需要某个特定领域的深入分析时不要强行扩展'——此处用户明确需要的是培训材料"
+    }
+  ],
+  "minimum_pass_rate": 0.8,
+  "notes": "至少3条should_trigger+2条should_not_trigger+1条edge_case。全部should_not_trigger必须通过。"
+}

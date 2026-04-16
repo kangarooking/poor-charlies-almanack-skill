@@ -1,0 +1,73 @@
+{
+  "skill": "darwinian-objectivity",
+  "version": "0.1.0",
+  "source_book": "《穷查理宝典》— 查理·芒格",
+  "darwin_compatible": true,
+  "test_cases": [
+    {
+      "id": "should-trigger-01",
+      "type": "should_trigger",
+      "prompt": "我研究这个行业三个月了，越看越觉得自己的判断是对的，反面意见我都不想听了，有什么证据能反驳我吗？",
+      "expected_behavior": "应激活 darwinian-objectivity, 并帮助用户系统性搜索反面证据——语言信号'反面意见不想听'恰恰说明确认偏见已开始作用",
+      "notes": "命中 A2 语言信号: '反面意见我都不想听了' + '有什么证据能反驳' + 确认偏见迹象"
+    },
+    {
+      "id": "should-trigger-02",
+      "type": "should_trigger",
+      "prompt": "我们团队讨论了一下午，所有人都同意这个方案，觉得肯定没问题，准备明天就拍板执行",
+      "expected_behavior": "应激活 darwinian-objectivity, 并指出'所有人都同意'是确认偏见的群体表现——没有人提出反面论证本身就是风险信号",
+      "notes": "命中 A2 场景: 团队决策中所有人都认同，没有人提出反面论证 + 语言信号'大家都同意'"
+    },
+    {
+      "id": "should-trigger-03",
+      "type": "should_trigger",
+      "prompt": "我觉得这个投资逻辑不可能错，行业趋势明确、管理层优秀、估值又低，简直完美",
+      "expected_behavior": "应激活 darwinian-objectivity, 并引导用户列出核心假设后系统搜索反面证据——'不可能错'和'简直完美'是确认偏见的高危信号",
+      "notes": "命中 A2 语言信号: '我觉得这肯定是对的/不可能错' + '我越是想越觉得有道理'"
+    },
+    {
+      "id": "should-trigger-04",
+      "type": "should_trigger",
+      "prompt": "我正在写一篇分析报告，已经收集了很多支持我观点的数据，但总觉得不够严谨，想看看有没有反面证据",
+      "expected_behavior": "应激活 darwinian-objectivity, 并帮助用户针对核心假设逐条搜索证伪证据——用户主动寻求反面证据正是达尔文方法的核心操作",
+      "notes": "命中 A2 场景: 形成强烈观点后需要检验可靠性，且主动寻求反面证据"
+    },
+    {
+      "id": "should-not-trigger-01",
+      "type": "should_not_trigger",
+      "prompt": "达尔文的进化论和自然选择学说是怎么发展出来的？他对科学的贡献有哪些？",
+      "expected_behavior": "不应激活, 因为这是关于达尔文本人的历史/科学知识查询，不是在应用达尔文的客观性方法来检验自己的判断",
+      "notes": "诱饵: 提及'达尔文'但完全是学术知识查询"
+    },
+    {
+      "id": "should-not-trigger-02",
+      "type": "should_not_trigger",
+      "prompt": "帮我收集一下新能源汽车行业的数据，市场规模、增长率、主要玩家",
+      "expected_behavior": "不应激活, 因为 B 段指出在信息收集的早期阶段——还没有形成任何观点时，不需要证伪",
+      "notes": "诱饵: 涉及研究分析但处于信息收集阶段，用户尚未形成观点"
+    },
+    {
+      "id": "should-not-trigger-03",
+      "type": "should_not_trigger",
+      "prompt": "服务器突然宕机了，客户在催，我需要立刻判断是数据库问题还是网络问题",
+      "expected_behavior": "不应激活, 因为 B 段明确排除紧急决策场景——系统性地搜索反面证据不现实",
+      "notes": "诱饵: 需要做判断但属于紧急场景，不是方法论检验的合适时机"
+    },
+    {
+      "id": "edge-01",
+      "type": "edge_case",
+      "prompt": "我看了三篇都说AI要替代90%工作的文章，我觉得这肯定是危言耸听，不可能的",
+      "expected_behavior": "可激活但方向反转, 用户已形成强烈观点('不可能')，需要用达尔文方法检验这个判断——但有趣的是用户站在'否定'的一面，同样需要证伪",
+      "notes": "边界: 用户对负面预测持否定态度——否定性结论同样需要达尔文方法的检验"
+    },
+    {
+      "id": "edge-02",
+      "type": "edge_case",
+      "prompt": "我对比了五个方案，列了各自的优缺点，但就是拿不定主意选哪个，你帮我看看",
+      "expected_behavior": "不应激活, 因为用户还在比较方案阶段，尚未形成强烈观点或结论。犹豫不决≠确认偏见",
+      "notes": "边界: 表面涉及'决策'和'评估'，但用户尚无结论，不存在需要证伪的已有观点"
+    }
+  ],
+  "minimum_pass_rate": 0.8,
+  "notes": "至少3条should_trigger+2条should_not_trigger+1条edge_case。全部should_not_trigger必须通过。"
+}

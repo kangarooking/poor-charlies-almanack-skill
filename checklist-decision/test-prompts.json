@@ -1,0 +1,73 @@
+{
+  "skill": "checklist-decision",
+  "version": "0.1.0",
+  "source_book": "《穷查理宝典》— 查理·芒格",
+  "darwin_compatible": true,
+  "test_cases": [
+    {
+      "id": "should-trigger-01",
+      "type": "should_trigger",
+      "prompt": "我们准备收购一家公司，金额很大，我想确保不遗漏任何关键因素，帮我梳理一下需要考虑的所有维度",
+      "expected_behavior": "应激活 checklist-decision, 并帮助用户构建包含理性分析、心理偏差自检、逆向思维三个维度的收购检查清单",
+      "notes": "直接命中 A2 场景: 高风险高复杂度重大决策 + 语言信号'帮我梳理所有维度'"
+    },
+    {
+      "id": "should-trigger-02",
+      "type": "should_trigger",
+      "prompt": "我做投资十多年了，之前一直靠经验判断效果还不错，但最近两次投资事后发现我遗漏了很关键的因素，一次是没仔细看管理层的激励结构，一次是忽略了行业政策变化",
+      "expected_behavior": "应激活 checklist-decision, 并引导用户将失败教训编排为系统化的决策前检查清单，防止再次遗漏",
+      "notes": "命中 A2 语言信号: '事后发现我遗漏了一个很关键的因素' + 专家过度自信场景"
+    },
+    {
+      "id": "should-trigger-03",
+      "type": "should_trigger",
+      "prompt": "我们公司准备进入一个新市场，我需要一个系统化的方法来做这个决策，不能凭感觉",
+      "expected_behavior": "应激活 checklist-decision, 并帮助用户定义决策类型和范围、构建涵盖关键维度的检查清单",
+      "notes": "命中 A2 语言信号: '我需要一个系统化的方法来做这类决策'"
+    },
+    {
+      "id": "should-trigger-04",
+      "type": "should_trigger",
+      "prompt": "我做了这么多年产品经理，不需要什么清单，这种决策我闭着眼都能做",
+      "expected_behavior": "应激活 checklist-decision, 并温和地指出这种态度本身就是过度自信偏差的表现——芒格认为'几乎没有人那么聪明'",
+      "notes": "命中 A2 语言信号: '我做了这么多年，不需要什么清单'——拒绝使用清单恰恰是触发条件"
+    },
+    {
+      "id": "should-not-trigger-01",
+      "type": "should_not_trigger",
+      "prompt": "帮我列一个今天要完成的待办事项，买菜、取快递、交水电费",
+      "expected_behavior": "不应激活, 因为这是日常待办事项列表，不是重大决策的思维校准工具",
+      "notes": "诱饵: '清单/列表'关键词出现，但是待办事项而非决策检查清单"
+    },
+    {
+      "id": "should-not-trigger-02",
+      "type": "should_not_trigger",
+      "prompt": "今晚吃什么好呢？帮我做个决定吧",
+      "expected_behavior": "不应激活, 因为这是日常低风险小决策，B 段明确排除此类场景",
+      "notes": "诱饵: 包含'决定'关键词，但属于日常琐碎选择"
+    },
+    {
+      "id": "should-not-trigger-03",
+      "type": "should_not_trigger",
+      "prompt": "我想了解一下芒格的投资原则检查清单都包含哪些内容，能介绍一下吗？",
+      "expected_behavior": "不应激活, 因为这是在询问概念/知识，而非面临一个需要用清单方法做决策的真实场景",
+      "notes": "诱饵: 纯信息查询，提及了'检查清单'但不是在应用方法论"
+    },
+    {
+      "id": "edge-01",
+      "type": "edge_case",
+      "prompt": "我准备招一个技术总监，这个岗位很关键，我想系统化地评估每个候选人",
+      "expected_behavior": "可激活, 关键岗位招聘属于高风险决策，适合用检查清单方法，但需注意清单内容应针对招聘场景定制",
+      "notes": "边界: 中等风险决策——招聘不是并购级别的风险，但关键岗位足以需要系统化检查"
+    },
+    {
+      "id": "edge-02",
+      "type": "edge_case",
+      "prompt": "我们在做一个头脑风暴，想尽量多地产生创意方案，有没有什么好方法？",
+      "expected_behavior": "不应激活, 因为 B 段明确指出清单适用于'避免错误'而非'产生创意'——这是探索性思考场景",
+      "notes": "边界: 系统化方法需求但属于创意/探索方向，不是避免遗漏场景"
+    }
+  ],
+  "minimum_pass_rate": 0.8,
+  "notes": "至少3条should_trigger+2条should_not_trigger+1条edge_case。全部should_not_trigger必须通过。"
+}

@@ -1,0 +1,73 @@
+{
+  "skill": "deprival-superreaction",
+  "version": "0.1.0",
+  "source_book": "《穷查理宝典》— 查理·芒格",
+  "darwin_compatible": true,
+  "test_cases": [
+    {
+      "id": "should-trigger-01",
+      "type": "should_trigger",
+      "prompt": "我在这个项目上已经投了两年时间和50万了，虽然数据一直不好，但再投入一点就能回本了，我不能现在放弃",
+      "expected_behavior": "应激活 deprival-superreaction, 并识别沉没成本+即将扳回的幻觉——帮助用户分离事实与情绪，用旁观者视角重新评估",
+      "notes": "命中 A2 语言信号: '已经投了这么多不能放弃' + '再投入一点就能回本' + 典型沉没成本陷阱"
+    },
+    {
+      "id": "should-trigger-02",
+      "type": "should_trigger",
+      "prompt": "我昨天参加了一场拍卖会，有个古董花瓶我差一点就拿到了，被人最后一秒超过，太不甘心了，我准备出更高的价格再去拍一次",
+      "expected_behavior": "应激活 deprival-superreaction, 并识别'即将拥有但被夺走'的典型触发模式——芒格指出拍卖场景是该倾向的完美陷阱",
+      "notes": "命中 A2 语言信号: '差一点就赢了/拿到了' + '不甘心' + 拍卖竞价场景"
+    },
+    {
+      "id": "should-trigger-03",
+      "type": "should_trigger",
+      "prompt": "我的股票账户今年亏了40%，我一直在加仓想扳回来，老婆劝我止损我听不进去，如果不继续投之前的就全白费了",
+      "expected_behavior": "应激活 deprival-superreaction, 并识别被剥夺超级反应+避免不一致性+心理否认的 Lollapalooza 效应——这正是芒格描述的破产者通病",
+      "notes": "命中 A2 场景: 投资失败后急于扳平 + 语言信号'如果不继续之前的投入全白费'"
+    },
+    {
+      "id": "should-trigger-04",
+      "type": "should_trigger",
+      "prompt": "合同都谈了三个月了，对方突然说要跟另一家签约，我准备立刻降价20%挽回来，不能就这么算了",
+      "expected_behavior": "应激活 deprival-superreaction, 并识别'即将拥有但失去'的触发——三个月谈判使心理上已'拥有'该合同，突然失去引发不成比例的让步冲动",
+      "notes": "命中 A2 场景: 谈判中因'差点就赢了'产生非理性让步冲动"
+    },
+    {
+      "id": "should-not-trigger-01",
+      "type": "should_not_trigger",
+      "prompt": "我想评估一下手里这只股票现在值不值得继续持有，基本面有没有变化",
+      "expected_behavior": "不应激活, 因为这是冷静的估值判断，没有损失情绪驱动，应使用 value-assessment",
+      "notes": "诱饵: 涉及投资持有/卖出决策，但属于理性估值而非被损失感绑架"
+    },
+    {
+      "id": "should-not-trigger-02",
+      "type": "should_not_trigger",
+      "prompt": "最近大家都说AI概念股好，我也想买一点，你觉得呢？",
+      "expected_behavior": "不应激活, 因为这是从众行为驱动，不是损失驱动的非理性决策，应使用 misjudgment-psychology-checklist 中的社会认同倾向",
+      "notes": "诱饵: 涉及非理性投资决策但根源是从众而非损失厌恶"
+    },
+    {
+      "id": "should-not-trigger-03",
+      "type": "should_not_trigger",
+      "prompt": "我不愿意亏钱卖掉手里的基金，还是等回本再卖吧",
+      "expected_behavior": "不应激活, 因为 B 段指出'正常的损失厌恶不需要治疗'——不愿意亏钱是正常的风险规避",
+      "notes": "诱饵: 表面涉及损失和不愿止损，但程度轻微，属于正常心理而非超级反应"
+    },
+    {
+      "id": "edge-01",
+      "type": "edge_case",
+      "prompt": "我跟了一个客户半年了，投入了大量精力，现在竞争对手来了，我应该继续加大投入还是放弃？",
+      "expected_behavior": "可激活但需判断程度, 半年的沉没成本可能触发被剥夺超级反应，但商务决策中的坚持也可能是合理的——关键是判断'继续投入的理由是基于未来还是过去'",
+      "notes": "边界: 商务场景中的沉没成本——需要区分正常的竞争投入和被损失感驱动的非理性加注"
+    },
+    {
+      "id": "edge-02",
+      "type": "edge_case",
+      "prompt": "我们公司经营了十年的老业务一直在亏钱，但老板说这是公司的根基不能砍，大家都不理解",
+      "expected_behavior": "可激活, '经营十年+一直亏损+不能砍'同时命中沉没成本和身份认同因素，但需区分这是老板的合理战略判断还是被剥夺超级反应",
+      "notes": "边界: 组织层面的沉没成本——可能涉及被剥夺超级反应，但也可能是合理的品牌/战略考量"
+    }
+  ],
+  "minimum_pass_rate": 0.8,
+  "notes": "至少3条should_trigger+2条should_not_trigger+1条edge_case。全部should_not_trigger必须通过。"
+}

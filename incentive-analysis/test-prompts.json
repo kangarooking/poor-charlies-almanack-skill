@@ -1,0 +1,80 @@
+{
+  "skill": "incentive-analysis",
+  "version": "0.1.0",
+  "source_book": "《穷查理宝典》— 查理·芒格",
+  "darwin_compatible": true,
+  "test_cases": [
+    {
+      "id": "should-trigger-01",
+      "type": "should_trigger",
+      "prompt": "我们公司上个月刚改了考核制度，但大家还是老样子，该摸鱼的摸鱼，该加班的加班，完全没变化",
+      "expected_behavior": "应激活 incentive-analysis, 并从激励机制错位角度诊断为什么制度改变没有带来行为改变",
+      "notes": "直接命中 A2 语言信号: '为什么制度改了但大家还是老样子'"
+    },
+    {
+      "id": "should-trigger-02",
+      "type": "should_trigger",
+      "prompt": "律师建议我们走诉讼路径解决问题，但我觉得诉讼费用很高，而且他似乎特别积极",
+      "expected_behavior": "应激活 incentive-analysis, 并帮助用户检查律师的建议是否存在激励引起的偏见——按小时收费的律师天然倾向诉讼",
+      "notes": "命中 A2 场景: 专业顾问提出的建议恰好对他们自己有利"
+    },
+    {
+      "id": "should-trigger-03",
+      "type": "should_trigger",
+      "prompt": "我反复跟团队讲道理，数据也摆出来了，但他们就是不按我说的做，怎么办？",
+      "expected_behavior": "应激活 incentive-analysis, 并引导用户从利益角度而非道理角度重新设计说服策略",
+      "notes": "命中 A2 场景: 从道理出发不生效，需要诉诸利益"
+    },
+    {
+      "id": "should-trigger-04",
+      "type": "should_trigger",
+      "prompt": "销售团队总是推利润低的产品，明明我们高利润产品的佣金比例更高，他们难道不知道这样对公司不好吗？",
+      "expected_behavior": "应激活 incentive-analysis, 并深入分析销售人员的显性和隐性激励结构——可能低利润产品更容易成交，隐性激励（完成KPI数量）与公司目标不一致",
+      "notes": "命中 A2 语言信号: '他们难道不知道自己在做错事吗' + 明显的激励错位场景"
+    },
+    {
+      "id": "should-trigger-05",
+      "type": "should_trigger",
+      "prompt": "投行给我们的并购方案看起来很专业，但总觉得哪里不对，交易结构特别复杂",
+      "expected_behavior": "应激活 incentive-analysis, 并帮助用户进行利益冲突审查——投行按交易金额抽成，复杂交易=高佣金",
+      "notes": "命中 A2 场景: 专业顾问建议+用户直觉感到不对劲"
+    },
+    {
+      "id": "should-not-trigger-01",
+      "type": "should_not_trigger",
+      "prompt": "帮我解释一下什么是股票期权，它的定价原理是什么？",
+      "expected_behavior": "不应激活, 因为这是纯知识/信息查询，不涉及分析人的行为动机或设计激励机制",
+      "notes": "诱饵: 纯信息查询，提及金融术语但不涉及行为分析"
+    },
+    {
+      "id": "should-not-trigger-02",
+      "type": "should_not_trigger",
+      "prompt": "我的MySQL查询总是很慢，有没有什么优化索引的方法？",
+      "expected_behavior": "不应激活, 因为这是纯技术问题，人的行为不是关键变量",
+      "notes": "诱饵: 纯技术问题，完全不涉及人的行为或激励"
+    },
+    {
+      "id": "should-not-trigger-03",
+      "type": "should_not_trigger",
+      "prompt": "芒格说的'诉诸利益而非理性'是什么意思？能举个例子吗？",
+      "expected_behavior": "不应激活, 因为这是在询问概念解释，而非在真实场景中需要分析激励机制或说服他人",
+      "notes": "诱饵: 学术性询问芒格观点，不是在应用方法论"
+    },
+    {
+      "id": "edge-01",
+      "type": "edge_case",
+      "prompt": "我想让父母同意我换工作，他们就是不同意，我已经解释了很多遍了",
+      "expected_behavior": "可激活但应谨慎, 场景涉及说服他人且道理不生效，但属于家庭关系而非组织管理，激励分析框架不完全适用",
+      "notes": "边界: 家庭关系中的说服——诉诸利益原则仍可用，但'激励'需替换为'关切/担忧'，且 B 段警告不可用于个人情感关系"
+    },
+    {
+      "id": "edge-02",
+      "type": "edge_case",
+      "prompt": "我们是个开源社区，大家都是志愿者，为什么有些人特别积极贡献，有些人就不行？",
+      "expected_behavior": "可激活但应谨慎, 场景涉及分析行为动机，但 B 段指出'内在动机'是芒格框架的盲点，应提醒用户激励分析可能过度简化",
+      "notes": "边界: 内在动机场景——芒格框架对'利他行为'讨论不足，需补充说明"
+    }
+  ],
+  "minimum_pass_rate": 0.8,
+  "notes": "至少3条should_trigger+2条should_not_trigger+1条edge_case。全部should_not_trigger必须通过。"
+}

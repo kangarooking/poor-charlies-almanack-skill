@@ -1,0 +1,73 @@
+{
+  "skill": "value-assessment",
+  "version": "0.1.0",
+  "source_book": "《穷查理宝典》— 查理·芒格",
+  "darwin_compatible": true,
+  "test_cases": [
+    {
+      "id": "should-trigger-01",
+      "type": "should_trigger",
+      "prompt": "我在考虑要不要买一只消费股，市盈率25倍不算便宜，但品牌很强，这个价格合理吗？安全边际够不够？",
+      "expected_behavior": "应激活 value-assessment, 并从护城河、安全边际、定价权、管理层、能力圈五个维度系统评估",
+      "notes": "命中 A2 语言信号: '值不值得买' + '价格合理吗/安全边际' + 具体投资决策场景"
+    },
+    {
+      "id": "should-trigger-02",
+      "type": "should_trigger",
+      "prompt": "最近市场跌了很多，大家都很恐慌，但我觉得有些好公司可能被错杀了，现在是不是机会？",
+      "expected_behavior": "应激活 value-assessment, 并引导用户在市场恐慌中冷静评估内在价值与价格的差距，寻找安全边际",
+      "notes": "命中 A2 场景: 市场恐慌时判断是否有安全边际"
+    },
+    {
+      "id": "should-trigger-03",
+      "type": "should_trigger",
+      "prompt": "这家公司看起来护城河很宽，产品提价客户也不会跑，这种公司和其他公司到底差在哪？",
+      "expected_behavior": "应激活 value-assessment, 并重点分析定价权——芒格认为'尚未利用的提价能力'是伟大企业最可靠的标志",
+      "notes": "命中 A2 语言信号: '护城河/定价权' + '伟大的公司和普通的公司差在哪'"
+    },
+    {
+      "id": "should-trigger-04",
+      "type": "should_trigger",
+      "prompt": "有个朋友推荐了一个创业项目让我投天使轮，商业模式我大概能看懂，但不确定值不值得投",
+      "expected_behavior": "应激活 value-assessment, 并先做能力圈检验（是否真正理解这门生意），再评估护城河和安全边际",
+      "notes": "命中 A2 场景: 评估投资/创业项目是否值得投入"
+    },
+    {
+      "id": "should-not-trigger-01",
+      "type": "should_not_trigger",
+      "prompt": "这家公司员工8000人，年营收200亿，规模应该很大了吧？他们比竞争对手强在哪？",
+      "expected_behavior": "不应激活, 因为这是在分析规模和竞争格局而非评估价值，应使用 scale-advantage-analysis",
+      "notes": "诱饵: 涉及企业分析但聚焦于'规模'和'竞争比较'，不是'值不值'的判断"
+    },
+    {
+      "id": "should-not-trigger-02",
+      "type": "should_not_trigger",
+      "prompt": "我想做日内交易，能推荐几个短线指标吗？MACD和KDJ哪个更好用？",
+      "expected_behavior": "不应激活, 因为 B 段明确排除短线交易——芒格框架专为长期持有设计",
+      "notes": "诱饵: 涉及'交易决策'但属于短线投机，完全不在芒格价值评估框架内"
+    },
+    {
+      "id": "should-not-trigger-03",
+      "type": "should_not_trigger",
+      "prompt": "什么是安全边际？芒格和巴菲特是怎么定义内在价值的？",
+      "expected_behavior": "不应激活, 因为这是纯概念查询，不是在面临一个需要做价值判断的真实投资决策",
+      "notes": "诱饵: 精确使用了价值评估术语但只是知识问答"
+    },
+    {
+      "id": "edge-01",
+      "type": "edge_case",
+      "prompt": "我在考虑要不要花200万买个加盟品牌开奶茶店，品牌知名度还可以，但加盟费不便宜",
+      "expected_behavior": "可激活但应降级, 200万加盟属于商业投资决策，价值评估框架部分适用（护城河=品牌、安全边际=回本周期），但规模和性质与传统股票投资不同",
+      "notes": "边界: 中等金额的商业投资——不是股票但也涉及'值不值'的判断"
+    },
+    {
+      "id": "edge-02",
+      "type": "edge_case",
+      "prompt": "比特币最近涨了很多，我想用芒格的思维框架来评估一下值不值得买",
+      "expected_behavior": "不应激活或强烈警告, 因为 B 段明确指出'面对高波动但无内在价值的投机标的时，安全边际不适用于赌博'——芒格本人对加密货币持强烈否定态度",
+      "notes": "边界: 用户主动要求用芒格框架，但标的本身不在框架适用范围内"
+    }
+  ],
+  "minimum_pass_rate": 0.8,
+  "notes": "至少3条should_trigger+2条should_not_trigger+1条edge_case。全部should_not_trigger必须通过。"
+}

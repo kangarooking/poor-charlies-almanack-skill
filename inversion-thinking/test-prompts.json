@@ -1,0 +1,80 @@
+{
+  "skill": "inversion-thinking",
+  "version": "0.1.0",
+  "source_book": "《穷查理宝典》— 查理·芒格",
+  "darwin_compatible": true,
+  "test_cases": [
+    {
+      "id": "should-trigger-01",
+      "type": "should_trigger",
+      "prompt": "我正在做一个新产品的上市计划，团队都很乐观，但我总觉得漏掉了什么重要的东西，帮我检查一下这个计划有什么漏洞",
+      "expected_behavior": "应激活 inversion-thinking，引导用户从反面思考「什么会导致这个产品上市彻底失败」，系统性列出失败因素并设计规避措施",
+      "notes": "正面场景：用户有具体计划但直觉不安，语言信号匹配'我好像漏掉了什么重要的东西'和'帮我检查一下这个计划有什么漏洞'"
+    },
+    {
+      "id": "should-trigger-02",
+      "type": "should_trigger",
+      "prompt": "我们公司在考虑进入东南亚市场，前期调研看起来都不错，但我感觉这个方案太乐观了，你能帮我想想最坏的情况是什么吗",
+      "expected_behavior": "应激活 inversion-thinking，反转问题为'什么会导致东南亚市场扩张彻底失败'，列举致命失败路径",
+      "notes": "正面场景：重大商业决策，用户明确表达'方案太乐观'和'最坏的情况'，完全匹配 A2 触发信号"
+    },
+    {
+      "id": "should-trigger-03",
+      "type": "should_trigger",
+      "prompt": "我准备明年创业做在线教育，但目前只知道要成功需要做什么，不知道有没有什么我没想到的风险，能帮我从失败的角度分析一下吗",
+      "expected_behavior": "应激活 inversion-thinking，帮助用户列出创业可能失败的具体路径（资金断裂、获客成本、政策风险等），形成避坑清单",
+      "notes": "正面场景：创业决策，用户主动要求从失败角度分析，匹配'有没有什么我没想到的'触发信号"
+    },
+    {
+      "id": "should-trigger-04",
+      "type": "should_trigger",
+      "prompt": "团队头脑风暴讨论新产品方向，大家提了很多好想法，但我担心我们只看到了机会没看到威胁，能不能系统性地找找这个方案的茬",
+      "expected_behavior": "应激活 inversion-thinking，针对团队只看机会忽视威胁的场景，系统性地列出潜在威胁和失败模式",
+      "notes": "正面场景：匹配 A2 场景3——团队只看机会忽视威胁，需要系统性'找茬'"
+    },
+    {
+      "id": "should-trigger-05",
+      "type": "should_trigger",
+      "prompt": "我在做一个投资决策，正面分析都做完了，但我就是不确定怎么才能让这个投资不失败，你能帮我想想什么情况下这笔投资会血本无归吗",
+      "expected_behavior": "应激活 inversion-thinking，从'什么会导致投资失败'的反面视角列出致命风险因素",
+      "notes": "正面场景：投资决策，用户明确表达从失败角度分析的需求，匹配'怎么才能让这个项目成功但说不出具体风险'"
+    },
+    {
+      "id": "should-not-trigger-01",
+      "type": "should_not_trigger",
+      "prompt": "逆向思维是什么意思？能给我解释一下这个概念吗",
+      "expected_behavior": "不应激活本 skill，因为用户只是在询问概念定义，不需要将逆向思维应用于实际决策",
+      "notes": "诱饵：纯知识查询。用户只是问概念，不是在做决策时需要用这个方法论"
+    },
+    {
+      "id": "should-not-trigger-02",
+      "type": "should_not_trigger",
+      "prompt": "芒格说的'反过来想'是什么意思，能举几个例子吗",
+      "expected_behavior": "不应激活本 skill，因为用户在请求概念解释和历史案例，而非面对实际决策需要应用方法论",
+      "notes": "诱饵：知识查询伪装成决策需求。虽然提到了芒格的方法论关键词，但本质是学习而非应用"
+    },
+    {
+      "id": "should-not-trigger-03",
+      "type": "should_not_trigger",
+      "prompt": "帮我头脑风暴一下新产品可以有哪些创意方向",
+      "expected_behavior": "不应激活本 skill，因为用户需要的是创意发散而非风险规避。逆向思维天然偏向保守和防御，不适合创意场景",
+      "notes": "诱饵：看似需要分析但实际是创意发散。B 段边界明确说'需要创意发散时不适用'"
+    },
+    {
+      "id": "edge-01",
+      "type": "edge_case",
+      "prompt": "我在纠结要不要跳槽去一家新公司，你能帮我分析一下吗",
+      "expected_behavior": "可激活也可不激活。如果进一步对话发现用户是想系统性评估跳槽风险（失败模式），则激活；如果只是纠结比较两个选项的优劣，则更适合一般的决策辅助",
+      "notes": "边界：个人职业决策属于中等重要度，用户没有明确表达风险焦虑，也没有说分析陷入僵局。是否激活取决于用户是否表现出'担心有没看到的致命风险'的信号"
+    },
+    {
+      "id": "edge-02",
+      "type": "edge_case",
+      "prompt": "我想制定一个明年的健身计划，你能帮我从'怎么才会失败'的角度来设计吗",
+      "expected_behavior": "可以激活但权重较低。用户主动请求从失败角度分析，符合逆向思维的触发信号，但健身计划属于个人日常目标而非重大决策，方法论收益有限",
+      "notes": "边界：用户语言信号完全匹配（主动要求从失败角度分析），但决策重要度较低——日常个人目标 vs 重大商业/人生决策。严肃方法论可能过度工程化"
+    }
+  ],
+  "minimum_pass_rate": 0.8,
+  "notes": "至少3条should_trigger+2条should_not_trigger+1条edge_case。全部should_not_trigger必须通过。"
+}

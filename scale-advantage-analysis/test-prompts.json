@@ -1,0 +1,73 @@
+{
+  "skill": "scale-advantage-analysis",
+  "version": "0.1.0",
+  "source_book": "《穷查理宝典》— 查理·芒格",
+  "darwin_compatible": true,
+  "test_cases": [
+    {
+      "id": "should-trigger-01",
+      "type": "should_trigger",
+      "prompt": "我们公司市场占有率已经做到行业第一了，但利润率反而在下降，是不是规模大了反而不好？",
+      "expected_behavior": "应激活 scale-advantage-analysis, 并同时分析规模优势来源和规模劣势风险，判断净效果",
+      "notes": "命中 A2 场景: 评估市场占有率增长是否真正带来竞争优势还是开始引发组织臃肿"
+    },
+    {
+      "id": "should-trigger-02",
+      "type": "should_trigger",
+      "prompt": "我们是家创业公司，对手是个行业巨头，我们还有没有机会？大企业为什么反而做不好创新？",
+      "expected_behavior": "应激活 scale-advantage-analysis, 并用规模劣势框架分析巨头可能的官僚主义和僵化问题，同时评估创业公司的差异化机会",
+      "notes": "命中 A2 语言信号: '大企业为什么反而做不好创新' + 创业公司vs巨头的竞争分析"
+    },
+    {
+      "id": "should-trigger-03",
+      "type": "should_trigger",
+      "prompt": "我们在考虑要不要扩张到全国市场，目前只在一个省有业务，规模扩大的话管理和成本会怎么变化？",
+      "expected_behavior": "应激活 scale-advantage-analysis, 并帮助用户权衡规模收益（采购优势、品牌覆盖）与官僚主义风险（管理链条增长、信息失真）",
+      "notes": "命中 A2 场景: 决定是否扩张业务规模，需要权衡收益与风险"
+    },
+    {
+      "id": "should-trigger-04",
+      "type": "should_trigger",
+      "prompt": "这个行业看起来是赢家通吃的格局，我想分析一下龙头企业的护城河到底能不能持续",
+      "expected_behavior": "应激活 scale-advantage-analysis, 并从五种规模优势来源和四种规模劣势风险两个方向综合评估护城河可持续性",
+      "notes": "命中 A2 语言信号: '赢家通吃' + '护城河'"
+    },
+    {
+      "id": "should-not-trigger-01",
+      "type": "should_not_trigger",
+      "prompt": "这只股票市盈率只有8倍，市净率0.6，是不是被低估了？值不值得买？",
+      "expected_behavior": "不应激活, 因为这是纯估值/投资决策问题，应使用 value-assessment 而非规模分析",
+      "notes": "诱饵: 涉及企业分析但聚焦于估值指标，不是规模效应问题"
+    },
+    {
+      "id": "should-not-trigger-02",
+      "type": "should_not_trigger",
+      "prompt": "我总是跟风买股票，别人买什么我买什么，怎么克服这个毛病？",
+      "expected_behavior": "不应激活, 因为这是从众行为的心理偏差问题，应使用 misjudgment-psychology-checklist",
+      "notes": "诱饵: 提及'跟风'看似与规模分析中的'社会认同'有关，但实际是个人心理偏差"
+    },
+    {
+      "id": "should-not-trigger-03",
+      "type": "should_not_trigger",
+      "prompt": "什么是规模经济？能简单解释一下概念吗？",
+      "expected_behavior": "不应激活, 因为这是纯概念解释的信息查询，不是在分析具体企业的竞争格局",
+      "notes": "诱饵: 精确使用了'规模经济'关键词但只是知识问答"
+    },
+    {
+      "id": "edge-01",
+      "type": "edge_case",
+      "prompt": "我们是个SaaS公司，用户增长很快，我想知道继续烧钱获客是不是正确的策略",
+      "expected_behavior": "可激活但应补充说明, 场景涉及规模扩张决策，但 B 段指出芒格对'轻资产规模'(如SaaS)和网络效应型企业讨论不足，需补充现代框架",
+      "notes": "边界: SaaS平台型公司——芒格框架适用但不够充分，需要补充网络效应和单位经济模型"
+    },
+    {
+      "id": "edge-02",
+      "type": "edge_case",
+      "prompt": "我在考虑要不要去大公司还是留在小公司，大公司品牌好但感觉升职慢",
+      "expected_behavior": "不应激活, 因为 B 段明确排除纯个人决策（职业选择），这是个人职业规划而非组织/商业分析",
+      "notes": "边界: 提及'大公司vs小公司'看似涉及规模分析，但本质是个人职业选择"
+    }
+  ],
+  "minimum_pass_rate": 0.8,
+  "notes": "至少3条should_trigger+2条should_not_trigger+1条edge_case。全部should_not_trigger必须通过。"
+}
