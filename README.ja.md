@@ -110,6 +110,8 @@ poor-charlies-almanack-skill/
 
 - [Buffett Letters Skill](https://github.com/kangarooking/buffett-letters-skill) — バフェットの60年以上の株主への手紙から抽出した20個の投資判断スキル
 - [No Rules Rules Skill](https://github.com/kangarooking/no-rules-rules-skill) — ネットフリックスの自由と責任の文化から抽出した10個の組織設計スキル
+- [Cognitive Dividend Skill](https://github.com/kangarooking/cognitive-dividend-skill) — 『認知の红利』から抽出した15個の認知ツールスキル
+- [Duan Yongping Skill](https://github.com/kangarooking/duan-yongping-skill) — 段永平の投資Q&Aから抽出した15個のビジネス・投資スキル
 
 ## License
 
